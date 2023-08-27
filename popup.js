@@ -1,5 +1,5 @@
 // popup.js
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   chrome.storage.local.get({ inputs: [] }, result => {
     const storedInputs = result.inputs;
     const inputList = document.getElementById("inputList");

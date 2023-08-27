@@ -1,5 +1,4 @@
 // background.js
 chrome.runtime.onInstalled.addListener(() => {
-    // Initialization code, if needed
-  });
-  
+  // Initialization code, if needed
+});
