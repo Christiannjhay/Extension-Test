@@ -1,4 +1,4 @@
-# My Chrome Extension: Input Toxicity Analyzer
+# Chrome Extension: Input Toxicity Analyzer
 
 ![Extension Icon](/path/to/icon.png)
 
