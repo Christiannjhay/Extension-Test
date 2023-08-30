@@ -66,7 +66,7 @@ For any questions or inquiries, please contact [your-email@example.com](mailto:y
 
 
 
-# Supported websites
+## Supported websites
 ### https://www.geeksforgeeks.org/
 ### https://www.pinterest.ph/
 ### https://daigler20.addu.edu.ph/
