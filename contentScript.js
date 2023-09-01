@@ -34,10 +34,11 @@ function captureSearchInput(inputValue) {
   captureInput(inputValue);
 }
 
+
+//YOUTUBE FUNCTION
 const searchForm = document.querySelector('#search-form');
 const searchButton = document.querySelector('#search-icon-legacy');
 
-//YOUTUBE FUNCTION
 if (searchForm) {
   searchForm.addEventListener('submit', function(event) {
     const searchInput = searchForm.querySelector('input[type="text"]');
