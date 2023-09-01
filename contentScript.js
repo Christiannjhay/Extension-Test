@@ -1,15 +1,14 @@
 // contentScript.js
-function logInputValues(inputValues) {
-  chrome.storage.local.get({ inputs: [] }, result => {
-    const storedInputs = result.inputs;
-    storedInputs.push(...inputValues);
-    chrome.storage.local.set({ inputs: storedInputs });
-  });
-}
+const inputs = document.querySelectorAll('input[type="text"], textarea');
 
-document.addEventListener("input", event => {
-  if (event.target.matches('input[type="text"], textarea')) {
+inputs.forEach(input => {
+  input.addEventListener("input", function(event) {
     const inputValue = event.target.value;
-    logInputValues([inputValue]);
-  }
+
+    chrome.storage.local.get({ inputs: [] }, result => {
+      const storedInputs = result.inputs;
+      storedInputs.push(inputValue);
+      chrome.storage.local.set({ inputs: storedInputs });
+    });
+  });
 });
