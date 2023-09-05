@@ -42,7 +42,7 @@ function captureButtonInput() {
   }
 }
 
-// Capture input from Twitter's "What's happening?" input field when the "Post" button is pressed
+// Capture input from Twitter
 document.body.addEventListener("click", function(event) {
   const postButton = event.target.closest('[data-testid="tweetButtonInline"]');
   if (postButton) {
@@ -53,6 +53,61 @@ document.body.addEventListener("click", function(event) {
     }
   }
 });
+
+
+// Listen for clicks on the document body and check if the button was clicked
+document.body.addEventListener("click", function (event) {
+  const tweetButton = event.target.closest('[data-testid="tweetButton"]');
+
+  if (tweetButton) {
+    const tweetInput = document.querySelector('[aria-label="Tweet text"]');
+    if (tweetInput) {
+      const inputValue = tweetInput.innerText;
+      captureInput(inputValue);
+    }
+  }
+});
+
+// Function to capture and store input in local storage
+function captureAndStoreInput() {
+  // Get the tweet input element
+  const tweetInput = document.querySelector('[data-testid="tweetTextarea_0"]');
+  
+  // Get the Post button element
+  const postButton = document.querySelector('[data-testid="tweetButton"]');
+  
+  // Check if both the input and button elements exist
+  if (tweetInput && postButton) {
+    // Add a click event listener to the Post button
+    postButton.addEventListener('click', function() {
+      // Get the input value
+      const inputValue = tweetInput.innerText;
+      
+      // Store the input value in local storage
+      chrome.storage.local.get({ inputs: [] }, function(result) {
+        const storedInputs = result.inputs;
+        storedInputs.push(inputValue);
+        chrome.storage.local.set({ inputs: storedInputs });
+      });
+    });
+  }
+}
+
+// Call the captureAndStoreInput function
+captureAndStoreInput();
+
+// Capture input from Facebook
+document.body.addEventListener("click", function(event) {
+  const postButton = event.target.closest('.x1i10hfl');
+  if (postButton) {
+    const tweetInput = document.querySelector('[contenteditable="true"]');
+    if (tweetInput) {
+      const inputValue = tweetInput.textContent; // Use textContent here
+      captureInput(inputValue);
+    }
+  }
+});
+
 
 
 // All websites
@@ -91,15 +146,3 @@ if (searchForm) {
   }
 }
 
-// Capture input from elements with class "DraftEditor-root" when a specific button is pressed
-const targetButtonClass = 'css-1dbjc4n r-l5o3uw r-42olwf r-sdzlij r-1phboty r-rs99b7 r-19u6a5r r-2yi16 r-1qi8awa r-icoktb r-1ny4l3l r-ymttw5 r-o7ynqc r-6416eg r-lrvibr';
-
-document.body.addEventListener("click", function(event) {
-  if (event.target.classList.contains(targetButtonClass)) {
-    const draftEditor = document.querySelector('.DraftEditor-root');
-    if (draftEditor) {
-      const inputValue = draftEditor.innerText;
-      captureInput(inputValue);
-    }
-  }
-});
