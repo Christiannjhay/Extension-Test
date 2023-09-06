@@ -42,6 +42,25 @@ function captureButtonInput() {
   }
 }
 
+// Get the contentEditable div element
+const inputElement = document.querySelector('div[aria-label="What\'s on your mind, Christian?"]');
+
+// Add an event listener to capture the Enter key press
+inputElement.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    // Get the text content from the contentEditable div
+    const inputText = inputElement.innerText.trim();
+
+    // Store the input value in local storage
+    chrome.storage.local.get({ inputs: [] }, function(result) {
+      const storedInputs = result.inputs;
+      storedInputs.push(inputText);
+      chrome.storage.local.set({ inputs: storedInputs });
+    });
+  }
+});
+
+
 // Capture input from Twitter
 document.body.addEventListener("click", function(event) {
   const postButton = event.target.closest('[data-testid="tweetButtonInline"]');
@@ -96,17 +115,6 @@ function captureAndStoreInput() {
 // Call the Twitter Capture functions
 captureAndStoreInput();
 
-// Capture input from Facebook
-document.body.addEventListener("click", function(event) {
-  const postButton = event.target.closest('.x1i10hfl');
-  if (postButton) {
-    const tweetInput = document.querySelector('[contenteditable="true"]');
-    if (tweetInput) {
-      const inputValue = tweetInput.textContent; // Use textContent here
-      captureInput(inputValue);
-    }
-  }
-});
 
 
 
