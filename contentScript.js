@@ -55,7 +55,7 @@ document.body.addEventListener("click", function(event) {
 });
 
 
-// Listen for clicks on the document body and check if the button was clicked
+// Twitter Whats Happening
 document.body.addEventListener("click", function (event) {
   const tweetButton = event.target.closest('[data-testid="tweetButton"]');
 
@@ -68,7 +68,7 @@ document.body.addEventListener("click", function (event) {
   }
 });
 
-// Function to capture and store input in local storage
+// Twitter Post button and replies
 function captureAndStoreInput() {
   // Get the tweet input element
   const tweetInput = document.querySelector('[data-testid="tweetTextarea_0"]');
@@ -93,7 +93,7 @@ function captureAndStoreInput() {
   }
 }
 
-// Call the captureAndStoreInput function
+// Call the Twitter Capture functions
 captureAndStoreInput();
 
 // Capture input from Facebook
