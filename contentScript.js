@@ -4,6 +4,9 @@ function captureInput(inputValue) {
     return; // Skip empty inputs
   }
 
+  // Send the captured input to the Python server
+  sendInputToPython(inputValue);
+
   chrome.storage.local.get({ inputs: [] }, function(result) {
     const storedInputs = result.inputs;
     storedInputs.push(inputValue);
@@ -14,6 +17,35 @@ function captureInput(inputValue) {
     });
   });
 }
+
+// Function to send input to Python for sentiment analysis
+function sendInputToPython(inputValue) {
+  const url = 'http://localhost:5000/analyze';
+  const options = {
+    method: 'POST',
+    mode: 'cors',  // Add this line to enable CORS
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ text: inputValue }),
+  };
+
+  fetch(url, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Server response:', data);
+    })
+    .catch(error => {
+      console.error('Fetch Error:', error);
+    });
+}
+
+
 
 // Function to capture search input
 function captureSearchInput(inputValue) {
@@ -145,3 +177,5 @@ if (searchForm) {
     });
   }
 }
+
+
